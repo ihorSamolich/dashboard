@@ -14,7 +14,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({ to, icon: Icon, label, active
   const isActive = activeCondition ? activeCondition(pathname) : pathname.includes(to);
 
   return (
-    <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${isActive && "bg-slate-900"}`}>
+    <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${isActive && "bg-slate-900 rounded-md"}`}>
       <NavLink
         end
         to={to}

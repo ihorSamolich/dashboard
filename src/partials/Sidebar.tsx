@@ -18,6 +18,8 @@ import ChevronDown from "../components/sidebar/ChevronDown.tsx";
 import ExpandCollapseButton from "../components/sidebar/ExpandCollapseButton.tsx";
 import SidebarLink from "../components/sidebar/SidebarLink.tsx";
 import SidebarLinkGroup from "../components/sidebar/SidebarLinkGroup.tsx";
+import SidebarLinkGroupMenu from "../components/sidebar/SidebarLinkGroupMenu.tsx";
+import SidebarLinkGroupTitle from "../components/sidebar/SidebarLinkGroupTitle.tsx";
 
 interface ISidebarProps {
   sidebarOpen: boolean;
@@ -93,10 +95,15 @@ const Sidebar: React.FC<ISidebarProps> = (props) => {
               <path d="M10.7 18.7l1.4-1.4L7.8 13H20v-2H7.8l4.3-4.3-1.4-1.4L4 12z" />
             </svg>
           </button>
+
           {/* Logo */}
-          <NavLink end to="/" className="flex flex-row items-center">
-            <IconDashboard className="w-8 h-8 text-white" />
-            <span className="ms-2 text-xl text-white font-bold lg:hidden lg:sidebar-expanded:block ">Dashboard</span>
+          <NavLink end to="/" className={`block text-slate-200 truncate transition duration-150 "}`}>
+            <div className="flex items-center">
+              <div>
+                <IconDashboard className="w-8 h-8 text-white" />
+              </div>
+              <span className="text-xl font-bold ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 duration-200">Dashboard</span>
+            </div>
           </NavLink>
 
           {/* Links */}
@@ -115,181 +122,73 @@ const Sidebar: React.FC<ISidebarProps> = (props) => {
 
                 {/* E-Commerce */}
                 <SidebarLinkGroup activecondition={pathname.includes("ecommerce")}>
-                  {(handleClick, open) => {
-                    return (
-                      <>
-                        <a
-                          href="#"
-                          className={`block text-slate-200 truncate transition duration-150 ${
-                            pathname.includes("ecommerce") ? "hover:text-slate-200" : "hover:text-white"
-                          }`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                          }}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <IconBrandShopee
-                                className={`${pathname.includes("ecommerce") ? "text-indigo-500" : "text-slate-400"}`}
-                              />
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                E-Commerce
-                              </span>
-                            </div>
-                            {/* Icon */}
-                            <ChevronDown open={open} />
-                          </div>
-                        </a>
-                        <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                          <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/ecommerce/customers"
-                                className={({ isActive }) =>
-                                  "block transition duration-150 truncate " +
-                                  (isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-200")
-                                }
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Customers
-                                </span>
-                              </NavLink>
-                            </li>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/ecommerce/orders"
-                                className={({ isActive }) =>
-                                  "block transition duration-150 truncate " +
-                                  (isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-200")
-                                }
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Orders
-                                </span>
-                              </NavLink>
-                            </li>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/ecommerce/invoices"
-                                className={({ isActive }) =>
-                                  "block transition duration-150 truncate " +
-                                  (isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-200")
-                                }
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Invoices
-                                </span>
-                              </NavLink>
-                            </li>
-                          </ul>
-                        </div>
-                      </>
-                    );
-                  }}
+                  {(handleClick, open) => (
+                    <>
+                      <SidebarLinkGroupTitle
+                        href="#"
+                        icon={IconBrandShopee}
+                        isActive={pathname.includes("ecommerce")}
+                        handleClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
+                        }}
+                      >
+                        E-Commerce
+                        <ChevronDown open={open} />
+                      </SidebarLinkGroupTitle>
+                      <SidebarLinkGroupMenu
+                        open={open}
+                        links={[
+                          { to: "/ecommerce/customers", label: "Customers" },
+                          { to: "/ecommerce/orders", label: "Orders" },
+                          { to: "/ecommerce/invoices", label: "Invoices" },
+                        ]}
+                      />
+                    </>
+                  )}
                 </SidebarLinkGroup>
 
-                {/* Job Board */}
+                {/*/!* Job Board *!/*/}
                 <SidebarLinkGroup activecondition={pathname.includes("job")}>
-                  {(handleClick, open) => {
-                    return (
-                      <React.Fragment>
-                        <a
-                          href="#"
-                          className={`block text-slate-200 truncate transition duration-150 ${
-                            pathname.includes("job") ? "hover:text-slate-200" : "hover:text-white"
-                          }`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                          }}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <IconBriefcase className={`${pathname.includes("job") ? "text-indigo-500" : "text-slate-400"}`} />
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Job Board
-                              </span>
-                            </div>
-                            {/* Icon */}
-                            <ChevronDown open={open} />
-                          </div>
-                        </a>
-                        <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                          <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/job/company-profile"
-                                className={({ isActive }) =>
-                                  "block transition duration-150 truncate " +
-                                  (isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-200")
-                                }
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Company Profile
-                                </span>
-                              </NavLink>
-                            </li>
-                          </ul>
-                        </div>
-                      </React.Fragment>
-                    );
-                  }}
+                  {(handleClick, open) => (
+                    <>
+                      <SidebarLinkGroupTitle
+                        href="#"
+                        icon={IconBriefcase}
+                        isActive={pathname.includes("job")}
+                        handleClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
+                        }}
+                      >
+                        Job Board
+                        <ChevronDown open={open} />
+                      </SidebarLinkGroupTitle>
+                      <SidebarLinkGroupMenu open={open} links={[{ to: "/job/company-profile", label: "Company Profile" }]} />
+                    </>
+                  )}
                 </SidebarLinkGroup>
 
-                {/* Tasks */}
+                {/*/!* Tasks *!/*/}
                 <SidebarLinkGroup activecondition={pathname.includes("tasks")}>
-                  {(handleClick, open) => {
-                    return (
-                      <React.Fragment>
-                        <a
-                          href="#"
-                          className={`block text-slate-200 truncate transition duration-150 ${
-                            pathname.includes("tasks") ? "hover:text-slate-200" : "hover:text-white"
-                          }`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                          }}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <IconListDetails
-                                className={`${pathname.includes("tasks") ? "text-indigo-500" : "text-slate-400"}`}
-                              />
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Tasks
-                              </span>
-                            </div>
-                            {/* Icon */}
-                            <ChevronDown open={open} />
-                          </div>
-                        </a>
-                        <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                          <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/tasks/kanban"
-                                className={({ isActive }) =>
-                                  "block transition duration-150 truncate " +
-                                  (isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-200")
-                                }
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Kanban
-                                </span>
-                              </NavLink>
-                            </li>
-                          </ul>
-                        </div>
-                      </React.Fragment>
-                    );
-                  }}
+                  {(handleClick, open) => (
+                    <>
+                      <SidebarLinkGroupTitle
+                        href="#"
+                        icon={IconListDetails}
+                        isActive={pathname.includes("tasks")}
+                        handleClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
+                        }}
+                      >
+                        Tasks
+                        <ChevronDown open={open} />
+                      </SidebarLinkGroupTitle>
+                      <SidebarLinkGroupMenu open={open} links={[{ to: "/tasks/activity", label: "Activity" }]} />{" "}
+                      <SidebarLinkGroupMenu open={open} links={[{ to: "/tasks/disabled", label: "Disabled" }]} />
+                    </>
+                  )}
                 </SidebarLinkGroup>
 
                 {/* Inbox */}
@@ -318,64 +217,27 @@ const Sidebar: React.FC<ISidebarProps> = (props) => {
 
                 {/* Settings */}
                 <SidebarLinkGroup activecondition={pathname.includes("settings")}>
-                  {(handleClick, open) => {
-                    return (
-                      <React.Fragment>
-                        <a
-                          href="#"
-                          className={`block text-slate-200 truncate transition duration-150 ${
-                            pathname.includes("settings") ? "hover:text-slate-200" : "hover:text-white"
-                          }`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                          }}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <IconSettings
-                                className={`${pathname.includes("settings") ? "text-indigo-500" : "text-slate-400"}`}
-                              />
-
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Settings
-                              </span>
-                            </div>
-                            {/* Icon */}
-                            <div className="flex shrink-0 ml-2">
-                              <svg
-                                className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${open && "rotate-180"}`}
-                                viewBox="0 0 12 12"
-                              >
-                                <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                              </svg>
-                            </div>
-                          </div>
-                        </a>
-                        <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                          <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/settings/account"
-                                className={({ isActive }) =>
-                                  "block transition duration-150 truncate " +
-                                  (isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-200")
-                                }
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  My Account
-                                </span>
-                              </NavLink>
-                            </li>
-                          </ul>
-                        </div>
-                      </React.Fragment>
-                    );
-                  }}
+                  {(handleClick, open) => (
+                    <>
+                      <SidebarLinkGroupTitle
+                        href="#"
+                        icon={IconSettings}
+                        isActive={pathname.includes("settings")}
+                        handleClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
+                        }}
+                      >
+                        Settings
+                        <ChevronDown open={open} />
+                      </SidebarLinkGroupTitle>
+                      <SidebarLinkGroupMenu open={open} links={[{ to: "/settings/account", label: "My Account" }]} />
+                    </>
+                  )}
                 </SidebarLinkGroup>
               </ul>
             </div>
+
             {/* More group */}
             <div>
               <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
@@ -386,59 +248,25 @@ const Sidebar: React.FC<ISidebarProps> = (props) => {
               </h3>
               <ul className="mt-3">
                 {/* Authentication */}
-                <SidebarLinkGroup>
-                  {(handleClick, open) => {
-                    return (
-                      <React.Fragment>
-                        <a
-                          href="#"
-                          className={`block text-slate-200 truncate transition duration-150 ${open ? "hover:text-slate-200" : "hover:text-white"}`}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                          }}
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                              <IconUserScan className="text-slate-400" viewBox="0 0 24 24" />
-
-                              <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Authentication
-                              </span>
-                            </div>
-                            {/* Icon */}
-                            <ChevronDown open={open} />
-                          </div>
-                        </a>
-                        <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                          <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/signin"
-                                className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Sign in
-                                </span>
-                              </NavLink>
-                            </li>
-                            <li className="mb-1 last:mb-0">
-                              <NavLink
-                                end
-                                to="/signup"
-                                className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate"
-                              >
-                                <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                  Sign up
-                                </span>
-                              </NavLink>
-                            </li>
-                          </ul>
-                        </div>
-                      </React.Fragment>
-                    );
-                  }}
+                <SidebarLinkGroup activecondition={pathname.includes("auth")}>
+                  {(handleClick, open) => (
+                    <>
+                      <SidebarLinkGroupTitle
+                        href="#"
+                        icon={IconUserScan}
+                        isActive={pathname.includes("auth")}
+                        handleClick={(e) => {
+                          e.preventDefault();
+                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
+                        }}
+                      >
+                        Authentication
+                        <ChevronDown open={open} />
+                      </SidebarLinkGroupTitle>
+                      <SidebarLinkGroupMenu open={open} links={[{ to: "/auth/login", label: "Login" }]} />
+                      <SidebarLinkGroupMenu open={open} links={[{ to: "/auth/register", label: "Register" }]} />
+                    </>
+                  )}
                 </SidebarLinkGroup>
               </ul>
             </div>
