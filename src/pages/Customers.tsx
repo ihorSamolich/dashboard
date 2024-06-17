@@ -1,5 +1,12 @@
+import WelcomeBanner from "../partials/dashboard/WelcomeBanner.tsx";
+
 const Customers = () => {
-  return <div>Customers</div>;
+  return (
+    <>
+      <WelcomeBanner />
+      <h1>Customers</h1>
+    </>
+  );
 };
 
 export default Customers;

@@ -2,6 +2,9 @@ import { IconMenu2, IconSearch } from "@tabler/icons-react";
 
 import React, { useState } from "react";
 
+import DropdownProfile from "../components/DropdownProfile.tsx";
+import ThemeToggle from "../components/ThemeToggle.tsx";
+
 interface HeaderProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
@@ -58,10 +61,10 @@ const Header: React.FC<HeaderProps> = (props) => {
             </div>
             {/*<Notifications align="right" />*/}
             {/*<Help align="right" />*/}
-            {/*<ThemeToggle />*/}
+            <ThemeToggle />
             {/*/!*  Divider *!/*/}
-            {/*<hr className="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />*/}
-            {/*<UserMenu align="right" />*/}
+            <hr className="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
+            <DropdownProfile align="right" />
           </div>
         </div>
       </div>
