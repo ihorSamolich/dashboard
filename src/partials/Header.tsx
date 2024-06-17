@@ -3,6 +3,7 @@ import { IconMenu2, IconSearch } from "@tabler/icons-react";
 import React, { useState } from "react";
 
 import DropdownProfile from "../components/DropdownProfile.tsx";
+import SearchModal from "../components/SearchModal.tsx";
 import ThemeToggle from "../components/ThemeToggle.tsx";
 
 interface HeaderProps {
@@ -12,11 +13,10 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = (props) => {
   const { sidebarOpen, setSidebarOpen } = props;
-
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
+    <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-10">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 -mb-px">
           {/* Header: Left side */}
@@ -52,19 +52,11 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <span className="sr-only">Search</span>
                 <IconSearch className="text-slate-400 w-4 h-4" />
               </button>
-              {/*<SearchModal*/}
-              {/*    id="search-modal"*/}
-              {/*    searchId="search"*/}
-              {/*    modalOpen={searchModalOpen}*/}
-              {/*    setModalOpen={setSearchModalOpen}*/}
-              {/*/>*/}
+              <SearchModal isOpen={searchModalOpen} close={() => setSearchModalOpen(false)} />
             </div>
-            {/*<Notifications align="right" />*/}
-            {/*<Help align="right" />*/}
             <ThemeToggle />
-            {/*/!*  Divider *!/*/}
             <hr className="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
-            <DropdownProfile align="right" />
+            <DropdownProfile />
           </div>
         </div>
       </div>

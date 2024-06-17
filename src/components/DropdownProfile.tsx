@@ -35,7 +35,7 @@ const DropdownProfile = () => {
           >
             <MenuItems
               static
-              className="min-w-44 z-10 absolute bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-4"
+              className="min-w-44 right-0 z-10 absolute bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-3"
             >
               <div className="pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
                 <div className="font-medium text-slate-800 dark:text-slate-100">Acme Inc.</div>
