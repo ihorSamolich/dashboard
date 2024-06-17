@@ -1,5 +1,4 @@
 import {
-  IconArrowBarRight,
   IconBrandCampaignmonitor,
   IconBrandShopee,
   IconBriefcase,
@@ -15,7 +14,8 @@ import { NavLink, useLocation } from "react-router-dom";
 
 import React, { useEffect, useRef, useState } from "react";
 
-import ChevronDown from "../components/ChevronDown.tsx";
+import ChevronDown from "../components/sidebar/ChevronDown.tsx";
+import ExpandCollapseButton from "../components/sidebar/ExpandCollapseButton.tsx";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 
 interface ISidebarProps {
@@ -163,6 +163,21 @@ const Sidebar: React.FC<ISidebarProps> = (props) => {
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                                 Main
+                              </span>
+                            </NavLink>
+                          </li>
+
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="/dashboard"
+                              className={({ isActive }) =>
+                                "block transition duration-150 truncate " +
+                                (isActive ? "text-indigo-500" : "text-slate-400 hover:text-slate-200")
+                              }
+                            >
+                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Dashboard
                               </span>
                             </NavLink>
                           </li>
@@ -561,14 +576,7 @@ const Sidebar: React.FC<ISidebarProps> = (props) => {
         </div>
 
         {/* Expand / collapse button */}
-        <div className="pt-3 hidden lg:inline-flex 2xl:hidden justify-end mt-auto">
-          <div className="px-3 py-2">
-            <button onClick={() => setSidebarExpanded(!sidebarExpanded)}>
-              <span className="sr-only">Expand / collapse sidebar</span>
-              <IconArrowBarRight className="w-8 h-8 text-slate-400 sidebar-expanded:rotate-180" />
-            </button>
-          </div>
-        </div>
+        <ExpandCollapseButton sidebarExpanded={sidebarExpanded} setSidebarExpanded={setSidebarExpanded} />
       </div>
     </div>
   );
