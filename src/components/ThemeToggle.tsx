@@ -1,6 +1,5 @@
 import { IconMoon, IconSun } from "@tabler/icons-react";
-
-import { useThemeProvider } from "../utils/ThemeContext.tsx";
+import { useThemeProvider } from "utils/contexts/ThemeContext.tsx";
 
 const ThemeToggle = () => {
   const { currentTheme, changeCurrentTheme } = useThemeProvider();

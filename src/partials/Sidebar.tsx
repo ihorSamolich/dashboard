@@ -10,16 +10,15 @@ import {
   IconSettings,
   IconUserScan,
 } from "@tabler/icons-react";
+import ChevronDown from "components/sidebar/ChevronDown.tsx";
+import ExpandCollapseButton from "components/sidebar/ExpandCollapseButton.tsx";
+import SidebarLink from "components/sidebar/SidebarLink.tsx";
+import SidebarLinkGroup from "components/sidebar/SidebarLinkGroup.tsx";
+import SidebarLinkGroupMenu from "components/sidebar/SidebarLinkGroupMenu.tsx";
+import SidebarLinkGroupTitle from "components/sidebar/SidebarLinkGroupTitle.tsx";
 import { NavLink, useLocation } from "react-router-dom";
 
 import React, { useEffect, useRef, useState } from "react";
-
-import ChevronDown from "../components/sidebar/ChevronDown.tsx";
-import ExpandCollapseButton from "../components/sidebar/ExpandCollapseButton.tsx";
-import SidebarLink from "../components/sidebar/SidebarLink.tsx";
-import SidebarLinkGroup from "../components/sidebar/SidebarLinkGroup.tsx";
-import SidebarLinkGroupMenu from "../components/sidebar/SidebarLinkGroupMenu.tsx";
-import SidebarLinkGroupTitle from "../components/sidebar/SidebarLinkGroupTitle.tsx";
 
 interface ISidebarProps {
   sidebarOpen: boolean;
@@ -120,28 +119,28 @@ const Sidebar: React.FC<ISidebarProps> = (props) => {
                 {/* Dashboard */}
                 <SidebarLink to="/" icon={IconHome} label="Home" activeCondition={(pathname) => pathname === "/"} />
 
-                {/* E-Commerce */}
-                <SidebarLinkGroup activecondition={pathname.includes("ecommerce")}>
+                {/* Categories */}
+                <SidebarLinkGroup activecondition={pathname.includes("categories")}>
                   {(handleClick, open) => (
                     <>
                       <SidebarLinkGroupTitle
                         href="#"
                         icon={IconBrandShopee}
-                        isActive={pathname.includes("ecommerce")}
+                        isActive={pathname.includes("categories")}
                         handleClick={(e) => {
                           e.preventDefault();
                           sidebarExpanded ? handleClick() : setSidebarExpanded(true);
                         }}
                       >
-                        E-Commerce
+                        Categories
                         <ChevronDown open={open} />
                       </SidebarLinkGroupTitle>
                       <SidebarLinkGroupMenu
                         open={open}
                         links={[
-                          { to: "/ecommerce/customers", label: "Customers" },
-                          { to: "/ecommerce/orders", label: "Orders" },
-                          { to: "/ecommerce/invoices", label: "Invoices" },
+                          { to: "/categories/list", label: "List" },
+                          { to: "/categories/create", label: "Create" },
+                          // { to: "/ecommerce/invoices", label: "Invoices" },
                         ]}
                       />
                     </>
